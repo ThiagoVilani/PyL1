@@ -37,6 +37,7 @@ def init():
 class Tablero():
     def __init__(self):
         self.lista_tarjetas = self.crear_tarjetas()
+        self.tiempo_click = 0
    
     def crear_tarjetas(self):
         i = 1
@@ -53,7 +54,6 @@ class Tablero():
         return lista
     
     def mezclar(self, lista):
-        lista
         lista_posiciones = []
         for tarjeta in lista:
             lista_posiciones.append(tarjeta.rect)
@@ -71,15 +71,74 @@ class Tablero():
         indice_tarjeta = None
         if pos_xy != None:
             print("colision en colision")
-            for i in range(len(dic_tablero["lista_tarjetas"])):
-                if dic_tablero["lista_tarjetas"][i]["rect"].collidepoint(pos_xy):
+            for i in range(len(self.lista_tarjetas)):
+                if self.lista_tarjetas[i].rect.collidepoint(pos_xy):
                     indice_tarjeta = i
-                    dic_tablero["tiempo_click"] = pygame.time.get_ticks()
+                    self.tiempo_click = pygame.time.get_ticks()
         return indice_tarjeta
+
+    def update(self, pos_mouse, tiempo_origen, lista_tarjetas_visibles, indices_tarjetas_visibles):
+        '''
+        verifica si es necesario actualizar el estado de alguna tarjeta, 
+        en funcion de su propio estado y el de las otras
+        Recibe como parametro el tablero y el tiempo transcurrido desde el ultimo llamado
+        '''    
+        tarjeta_a_descubrir = self.colicion(pos_mouse)
+        if tarjeta_a_descubrir != None:
+            self.lista_tarjetas[tarjeta_a_descubrir].visible = True
+            pos_mouse = None
+            lista_tarjetas_visibles.append(self.lista_tarjetas[tarjeta_a_descubrir])
+            indices_tarjetas_visibles.append(tarjeta_a_descubrir)
+        #:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+        if len(lista_tarjetas_visibles) > 1:
+            if (lista_tarjetas_visibles[0].path_imagen == lista_tarjetas_visibles[1].path_imagen):
+                print("las imagenes coinciden")
+                self.lista_tarjetas[indices_tarjetas_visibles][0].descubierto == True
+                self.lista_tarjetas[indices_tarjetas_visibles][1].descubierto == True
+                lista_tarjetas_visibles = []
+                indices_tarjetas_visibles = []
+                tablero.tiempo_click = 0
+            else:
+                print("Las imagenes no coinciden")
+                if 0 < tablero.tiempo_click:
+                    tiempito = tiempo_origen - tablero.tiempo_click
+                    if tiempito > 3000:
+                        print("ahora deberian cambiarse a hide")
+                        tablero.tiempo_click = 0
+                        for tarjeta in self.lista_tarjetas:
+                            tarjeta["visible"] = False
+                        lista_tarjetas_visibles = []
+                        indices_tarjetas_visibles = []        
+        #WIN ES LA FUNCION DONDE TENGO QUE VER QUE PONGO CUANDO GANO
+        #win(dic_tablero)        
+        return pos_mouse, lista_tarjetas_visibles, indices_tarjetas_visibles
+    
+    def render(self, pantalla_juego):
+        '''
+        Dibuja todos los elementos del tablero en la superficie recibida como parametro
+        Recibe como parametro el tablero
+        '''
+        for tarjeta in self.lista_tarjetas:
+            if (tarjeta.descubierto == True) or (tarjeta.visible == True):
+                pantalla_juego.blit(tarjeta.surface, tarjeta.rect)
+            else:
+                if (tarjeta.descubierto == False) and (tarjeta.visible == False):
+                    pantalla_juego.blit(tarjeta.surface_hide, tarjeta.rect)
+    
+    def coincidencia(self):
+        tarjetas_visibles = []
+        indices_coincidentes = []
+        for i in range(len(self.lista_tarjetas)):
+            if self.lista_tarjetas[i].visible == True:
+                indices_coincidentes.append(i)
+                tarjetas_visibles.append(self.lista_tarjetas[i])
+        if tarjetas_visibles[0].path_imagen == tarjetas_visibles[1].path_imagen:
+            return indices_coincidentes
 
 tablero = Tablero()
 lista = tablero.lista_tarjetas
 print(lista[0].rect, lista[6].rect)
+
 
 def mezclar(dic_tablero):
     lista_tarjetas = dic_tablero["lista_tarjetas"]
