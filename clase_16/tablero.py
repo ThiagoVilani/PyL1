@@ -90,7 +90,8 @@ def update(dic_tablero, pos_mouse, tiempo_origen, lista_tarjetas_visibles, indic
                     for tarjeta in dic_tablero["lista_tarjetas"]:
                         tarjeta["visible"] = False
                     lista_tarjetas_visibles = []
-                    indices_tarjetas_visibles = []                
+                    indices_tarjetas_visibles = []        
+    win(dic_tablero)        
     return pos_mouse, lista_tarjetas_visibles, indices_tarjetas_visibles
     
         
@@ -120,3 +121,12 @@ def coincidencia(lista_tarjetas):
             tarjetas_visibles.append(lista_tarjetas[i])
     if tarjetas_visibles[0]["path_imagen"] == tarjetas_visibles[1]["path_imagen"]:
         return indices_coincidentes
+
+def win(dic_tablero):
+    contador_descubiertas = 0
+    lista_tarjetas = dic_tablero["lista_tarjetas"]
+    for tarjeta in lista_tarjetas:
+        if tarjeta["descubierto"] == True:
+            contador_descubiertas += 1
+    if contador_descubiertas == len(lista_tarjetas):
+        print("Ganaste")
