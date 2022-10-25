@@ -93,20 +93,20 @@ class Tablero():
         if len(lista_tarjetas_visibles) > 1:
             if (lista_tarjetas_visibles[0].path_imagen == lista_tarjetas_visibles[1].path_imagen):
                 print("las imagenes coinciden")
-                self.lista_tarjetas[indices_tarjetas_visibles][0].descubierto == True
-                self.lista_tarjetas[indices_tarjetas_visibles][1].descubierto == True
+                self.lista_tarjetas[indices_tarjetas_visibles[0]].descubierto == True
+                self.lista_tarjetas[indices_tarjetas_visibles[1]].descubierto == True
                 lista_tarjetas_visibles = []
                 indices_tarjetas_visibles = []
                 tablero.tiempo_click = 0
             else:
-                print("Las imagenes no coinciden")
-                if 0 < tablero.tiempo_click:
-                    tiempito = tiempo_origen - tablero.tiempo_click
+                #print("Las imagenes no coinciden")
+                if 0 < self.tiempo_click:
+                    tiempito = tiempo_origen - self.tiempo_click
                     if tiempito > 3000:
                         print("ahora deberian cambiarse a hide")
-                        tablero.tiempo_click = 0
+                        self.tiempo_click = 0
                         for tarjeta in self.lista_tarjetas:
-                            tarjeta["visible"] = False
+                            tarjeta.visible = False
                         lista_tarjetas_visibles = []
                         indices_tarjetas_visibles = []        
         #WIN ES LA FUNCION DONDE TENGO QUE VER QUE PONGO CUANDO GANO
@@ -119,7 +119,9 @@ class Tablero():
         Recibe como parametro el tablero
         '''
         for tarjeta in self.lista_tarjetas:
-            if (tarjeta.descubierto == True) or (tarjeta.visible == True):
+            if tarjeta.descubierto == True:
+                print("Esta tarjeta deberia quedarse descubierta")
+            if tarjeta.descubierto == True or tarjeta.visible == True:
                 pantalla_juego.blit(tarjeta.surface, tarjeta.rect)
             else:
                 if (tarjeta.descubierto == False) and (tarjeta.visible == False):

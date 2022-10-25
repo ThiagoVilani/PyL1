@@ -31,5 +31,6 @@ while running:
     pantalla_juego.fill((255, 255, 255))
     tablero_juego.render(pantalla_juego)
     pygame.display.flip()
+    #print(tiempo_origen - tablero_juego.tiempo_click)
 # Done! Time to quit.
 pygame.quit()
