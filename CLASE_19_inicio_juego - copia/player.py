@@ -5,11 +5,11 @@ from auxiliar import Auxiliar
 
 class Player:
     def __init__(self,x,y,speed_walk,speed_run,gravity,jump) -> None:
-        self.walk_r = Auxiliar.getSurfaceFromSpriteSheet(r"C:\Users\vilan\OneDrive\Escritorio\PyL1\CLASE_19_inicio_juego\images\caracters\stink\walk.png",15,1)[:12]
-        self.walk_l = Auxiliar.getSurfaceFromSpriteSheet(r"C:\Users\vilan\OneDrive\Escritorio\PyL1\CLASE_19_inicio_juego\images\caracters\stink\walk.png",15,1,True)[:12]
-        self.stay = Auxiliar.getSurfaceFromSpriteSheet(r"C:\Users\vilan\OneDrive\Escritorio\PyL1\CLASE_19_inicio_juego\images\caracters\stink\idle.png",16,1)
-        self.jump_r = Auxiliar.getSurfaceFromSpriteSheet(r"C:\Users\vilan\OneDrive\Escritorio\PyL1\CLASE_19_inicio_juego\images\caracters\stink\jump.png",33,1,False,2)
-        self.jump_l = Auxiliar.getSurfaceFromSpriteSheet(r"C:\Users\vilan\OneDrive\Escritorio\PyL1\CLASE_19_inicio_juego\images\caracters\stink\jump.png",33,1,True,2)
+        self.walk_r = Auxiliar.getSurfaceFromSpriteSheet(r"C:\Users\vilan\Desktop\images\caracters\stink\walk.png",15,1)[:12]
+        self.walk_l = Auxiliar.getSurfaceFromSpriteSheet(r"C:\Users\vilan\Desktop\images\caracters\stink\walk.png",15,1,True)[:12]
+        self.stay = Auxiliar.getSurfaceFromSpriteSheet(r"C:\Users\vilan\Desktop\images\caracters\stink\idle.png",16,1)
+        self.jump_r = Auxiliar.getSurfaceFromSpriteSheet(r"C:\Users\vilan\Desktop\images\caracters\stink\jump.png",33,1,False,2)
+        self.jump_l = Auxiliar.getSurfaceFromSpriteSheet(r"C:\Users\vilan\Desktop\images\caracters\stink\jump.png",33,1,True,2)
         self.frame = 0
         self.lives = 5
         self.score = 0
@@ -22,7 +22,7 @@ class Player:
         self.animation = self.stay
         self.image = self.animation[self.frame]
         self.rect = self.image.get_rect()
-
+        
         self.is_jump = False
 
 
@@ -68,7 +68,7 @@ class Player:
         self.rect.x += self.move_x
         self.rect.y += self.move_y
         
-        if(self.rect.y < 500):
+        if(self.rect.y < 250):
             self.rect.y += self.gravity
     
     def draw(self,screen):

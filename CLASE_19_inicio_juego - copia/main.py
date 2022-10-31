@@ -10,14 +10,12 @@ screen = pygame.display.set_mode((ANCHO_VENTANA,ALTO_VENTANA))
 pygame.init()
 clock = pygame.time.Clock()
 
-imagen_fondo = pygame.image.load(r"C:\Users\vilan\OneDrive\Escritorio\PyL1\CLASE_19_inicio_juego\images\locations\forest\all.png")
+imagen_fondo = pygame.image.load(r"C:\Users\vilan\Desktop\images\locations\forest\all.png")
 imagen_fondo = pygame.transform.scale(imagen_fondo,(ANCHO_VENTANA,ALTO_VENTANA))
 player_1 = Player(0,0,4,8,8,16)
-enemy_1 = Enemy(399, 509, 10, 20)
+enemy_1 = Enemy(399, 250, 10, 20)
 tick = pygame.USEREVENT
-tick_2 = pygame.USEREVENT
 pygame.time.set_timer(tick, 90)
-pygame.time.set_timer(tick_2, 4000)
 contador_tiempo = 0
 
 while True:
@@ -37,15 +35,16 @@ while True:
             if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT or event.key == pygame.K_SPACE:
                 player_1.control("STAY")
         if event.type == tick:
-            enemy_1.update() 
-        if event.type == tick_2:
-            proyectil = Proyectil()
-            player_1.lista_proyectiles.append(proyectil.calcular_trayectoria())
+            contador_tiempo += 1
+            enemy_1.update(contador_tiempo)
+            
 
     screen.blit(imagen_fondo,imagen_fondo.get_rect())
-   
-   # enemy_1.update()
-    proyectil.update(player_1.lista_proyectiles, screen)
+    
+    #enemy_1.update()
+    print(enemy_1.rect)
+    print(enemy_1.move_x, enemy_1.move_y)
+    #proyectil.update(player_1.lista_proyectiles, screen)
     player_1.update()
     player_1.draw(screen)
     enemy_1.draw(screen)

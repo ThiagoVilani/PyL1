@@ -8,7 +8,7 @@ screen = pygame.display.set_mode((ANCHO_VENTANA,ALTO_VENTANA))
 pygame.init()
 clock = pygame.time.Clock()
 
-imagen_fondo = pygame.image.load(r"C:\Users\vilan\OneDrive\Escritorio\images\locations\forest\all.png")
+imagen_fondo = pygame.image.load(r"C:\Users\vilan\Desktop\images\locations\forest\all.png")
 imagen_fondo = pygame.transform.scale(imagen_fondo,(ANCHO_VENTANA,ALTO_VENTANA))
 player_1 = Player(0,0,4,8,8,16)
 

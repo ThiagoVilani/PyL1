@@ -3,7 +3,7 @@ import player
 
 class Proyectil:
     def __init__(self):
-        self.imagen_bala = pygame.image.load(r"C:\Users\vilan\OneDrive\Escritorio\PyL1\Juego\circulo_negro.png")
+        self.imagen_bala = pygame.image.load(r"C:\Users\vilan\Desktop\images\black_circle.png")
         self.imagen_bala = pygame.transform.scale(self.imagen_bala,(10,10))
         self.rect_bala = self.imagen_bala.get_rect()
         self.surface = self.imagen_bala
