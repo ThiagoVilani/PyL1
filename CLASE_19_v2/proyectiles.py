@@ -2,8 +2,8 @@ import pygame
 
 class Proyectil():
     def __init__(self, x, y):
-        self.image = pygame.image.load(r"C:\Users\vilan\Desktop\images\black_circle.png")
-        self.image = pygame.transform.scale(self.image, (100, 100))
+        self.image = pygame.image.load(r"C:\Users\vilan\Desktop\images\red_circle.png")
+        self.image = pygame.transform.scale(self.image, (10, 10))
         self.rect = self.image.get_rect()
         self.pos_x = x
         self.pos_y = y
@@ -30,15 +30,17 @@ class Cargador():
             lista_proyectiles.append(proyectil)
         return lista_proyectiles
 
-    def update(self, screen):
+    def update(self, screen, player_x, player_y):
         for proyectil in self.lista_proyectiles:
+            #proyectil = proyectil.calcular_trayectoria(player_x, player_y)
+            print(player_x)
             proyectil.pos_x = proyectil.pos_x + proyectil.trayectoria[0]
             proyectil.pos_y = proyectil.pos_y + proyectil.trayectoria[1]
             #proyectil.pos_x = proyectil.pos_x + (proyectil.trayectoria[0] * 3)
             #proyectil.pos_y = proyectil.pos_y + (proyectil.trayectoria[1] * 3)
             screen.blit(proyectil.image, (proyectil.pos_x, proyectil.pos_y))
             
-            pygame.draw.rect(screen, (255, 90, 34), (proyectil.pos_x, proyectil.pos_y, 50,50))
+            #pygame.draw.rect(screen, (255, 90, 34), (proyectil.pos_x, proyectil.pos_y, 50,50))
             # print(proyectil.rect.x, proyectil.rect.y)
             #print(proyectil.pos_x, proyectil.pos_y)
     
