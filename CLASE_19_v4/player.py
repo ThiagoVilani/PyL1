@@ -5,11 +5,11 @@ from auxiliar import Auxiliar
 
 class Player:
     def __init__(self,x,y,speed_walk,speed_run,gravity,jump) -> None:
-        self.walk_r = Auxiliar.getSurfaceFromSpriteSheet(r"C:\Users\vilan\Desktop\images\caracters\stink\walk.png",15,1)[:12]
-        self.walk_l = Auxiliar.getSurfaceFromSpriteSheet(r"C:\Users\vilan\Desktop\images\caracters\stink\walk.png",15,1,True)[:12]
-        self.stay = Auxiliar.getSurfaceFromSpriteSheet(r"C:\Users\vilan\Desktop\images\caracters\stink\idle.png",16,1)
-        self.jump_r = Auxiliar.getSurfaceFromSpriteSheet(r"C:\Users\vilan\Desktop\images\caracters\stink\jump.png",33,1,False,2)
-        self.jump_l = Auxiliar.getSurfaceFromSpriteSheet(r"C:\Users\vilan\Desktop\images\caracters\stink\jump.png",33,1,True,2)
+        self.walk_r = Auxiliar.getSurfaceFromSpriteSheet(r"C:\Users\vilan\OneDrive\Escritorio\images\caracters\stink\walk.png",15,1)[:12]
+        self.walk_l = Auxiliar.getSurfaceFromSpriteSheet(r"C:\Users\vilan\OneDrive\Escritorio\images\caracters\stink\walk.png",15,1,True)[:12]
+        self.stay = Auxiliar.getSurfaceFromSpriteSheet(r"C:\Users\vilan\OneDrive\Escritorio\images\caracters\stink\idle.png",16,1)
+        self.jump_r = Auxiliar.getSurfaceFromSpriteSheet(r"C:\Users\vilan\OneDrive\Escritorio\images\caracters\stink\jump.png",33,1,False,2)
+        self.jump_l = Auxiliar.getSurfaceFromSpriteSheet(r"C:\Users\vilan\OneDrive\Escritorio\images\caracters\stink\jump.png",33,1,True,2)
         self.frame = 0
         self.lives = 5
         self.score = 0
@@ -36,6 +36,15 @@ class Player:
             self.move_x = -self.speed_walk
             self.animation = self.walk_l
             self.frame = 0
+        elif(action == "DOWN"):
+            self.move_y = +self.speed_walk
+            self.animation = self.walk_l
+            self.frame = 0
+        elif(action == "UP"):
+            self.move_y = -self.speed_walk
+            self.animation = self.walk_l
+            self.frame = 0
+
         elif(action == "JUMP_R"):
             self.move_y = -self.jump
             self.move_x = self.speed_walk
@@ -70,6 +79,7 @@ class Player:
         
         if(self.rect.y < 250):
             self.rect.y += self.gravity
+        
     
     def draw(self,screen):
         self.image = self.animation[self.frame]

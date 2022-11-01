@@ -1,5 +1,6 @@
 import pygame
 import random
+import constantes
 
 def crear_zombie(x,y,ancho,alto):
     # Leer una imagen
