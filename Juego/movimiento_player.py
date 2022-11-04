@@ -1,7 +1,7 @@
 import pygame
 
 def crear_player(pos_player):
-    imagen_player = pygame.image.load("Programacion-y-Laboratorio-1\Juego\player.png")
+    imagen_player = pygame.image.load(r"C:\Users\vilan\OneDrive\Escritorio\PyL1\Juego\player.png")
     imagen_player = pygame.transform.scale(imagen_player, (125, 106))
     rect_player = imagen_player.get_rect()
     rect_player.x = pos_player[0]

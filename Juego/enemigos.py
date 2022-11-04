@@ -1,10 +1,10 @@
 import pygame
 import random
-import constantes
+
 
 def crear_zombie(x,y,ancho,alto):
     # Leer una imagen
-    imagen_zombie = pygame.image.load("Programacion-y-Laboratorio-1\Juego\zombie_2.png")
+    imagen_zombie = pygame.image.load(r"C:\Users\vilan\OneDrive\Escritorio\PyL1\Juego\zombie_2.png")
     imagen_zombie = pygame.transform.scale(imagen_zombie,(ancho,alto))
     rect_zombie = imagen_zombie.get_rect()
     rect_zombie.x = x

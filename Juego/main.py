@@ -13,17 +13,17 @@ pygame.display.set_caption("Testeando la ventana") #COLOCANDO EL TITULO DE LA VE
 #::::::::::SONIDOS::::::::::
 #musica_fondo = pygame.mixer.Sound("")
 #musica_fondo.play(-1)
-sonido_disparo = pygame.mixer.Sound("Programacion-y-Laboratorio-1\Juego\sonido_disparo.mp3")
-sonido_zombie = pygame.mixer.Sound("Programacion-y-Laboratorio-1\Juego\sonido_zombie.mp3")
+sonido_disparo = pygame.mixer.Sound(r"C:\Users\vilan\OneDrive\Escritorio\PyL1\Juego\sonido_disparo.mp3")
+sonido_zombie = pygame.mixer.Sound(r"C:\Users\vilan\OneDrive\Escritorio\PyL1\Juego\sonido_zombie.mp3")
 
 #::::::::::IMAGENES::::::::::
-imagen_game_over = pygame.image.load("Programacion-y-Laboratorio-1\Juego\game_over_2.png")
+imagen_game_over = pygame.image.load(r"C:\Users\vilan\OneDrive\Escritorio\PyL1\Juego\game_over_2.png")
 imagen_game_over = pygame.transform.scale(imagen_game_over, (500, 500))
-fondo = pygame.image.load(r"Programacion-y-Laboratorio-1\Juego\floor_4.png")
+fondo = pygame.image.load(r"C:\Users\vilan\OneDrive\Escritorio\PyL1\Juego\floor_4.png")
 fondo = pygame.transform.scale(fondo, (900, 900))
-imagen_sangre = pygame.image.load(r"Programacion-y-Laboratorio-1\Juego\blood.png")
+imagen_sangre = pygame.image.load(r"C:\Users\vilan\OneDrive\Escritorio\PyL1\Juego\blood.png")
 imagen_sangre = pygame.transform.scale(imagen_sangre, (60, 60))
-imagen_sangre_2 = pygame.image.load(r"Programacion-y-Laboratorio-1\Juego\blood_3.png")
+imagen_sangre_2 = pygame.image.load(r"C:\Users\vilan\OneDrive\Escritorio\PyL1\Juego\blood_3.png")
 imagen_sangre_2 = pygame.transform.scale(imagen_sangre_2, (900, 600))
 
 ventana_principal = pygame.display.set_mode((900, 600))
@@ -45,11 +45,11 @@ while is_running:
         if evento.type == pygame.QUIT:
             is_running = False
         if evento.type == timer:
-            #sonido_zombie.play()
+            sonido_zombie.play()
             enemigos.update(lista_enemigos, pos_player) 
         if evento.type == pygame.MOUSEBUTTONDOWN:
             if len(lista_balas_visibles) < 19:
-                sonido_disparo.play()
+                #sonido_disparo.play()
                 bala = proyectil.crear_bala(10, 10)
                 lista_balas_visibles.append(proyectil.calcular_trayectoria(bala, player))
                 print(len(lista_balas_visibles))
