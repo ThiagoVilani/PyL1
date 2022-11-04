@@ -7,7 +7,7 @@ class Enemy():
     def __init__(self, x, y):
         self.pos_x = x
         self.pos_y = y
-        self.walk_l = Auxiliar.getSurfaceFromSpriteSheet(r"C:\Users\vilan\OneDrive\Escritorio\images\inhabitants\dust\walk_left.png", 8, 1)
+        self.walk_l = Auxiliar.getSurfaceFromSpriteSheet(r"C:\Users\vilan\Desktop\images\inhabitants\dust\walk_left.png", 8, 1)
         self.frame = 0
         self.speed_walk = random.randint(5, 10)
         self.animation = self.walk_l
@@ -28,8 +28,9 @@ class Enemy():
 
 
 
-    def draw(self, screen):
-        pygame.draw.rect(screen, (200, 29, 249), self.rect)
+    def draw(self, screen, debug):
+        if debug:
+            pygame.draw.rect(screen, (200, 29, 249), self.rect)
         self.image = self.animation[self.frame]
         screen.blit(self.image, self.rect)
         
@@ -46,7 +47,7 @@ class Horde():
             if  enemy.rect.colliderect(player.rect):
                 return True
     
-    def draw(self, screen):
+    def draw(self, screen, debug):
         for enemy in self.enemy_list:
-            enemy.draw(screen)
+            enemy.draw(screen, debug)
         

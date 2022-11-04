@@ -11,18 +11,24 @@ pygame.init()
 clock = pygame.time.Clock()
 
 
-imagen_fondo = pygame.image.load(r"C:\Users\vilan\OneDrive\Escritorio\images\locations\forest\all.png")
+imagen_fondo = pygame.image.load(r"C:\Users\vilan\Desktop\images\locations\forest\all.png")
 imagen_fondo = pygame.transform.scale(imagen_fondo,(ANCHO_VENTANA,ALTO_VENTANA))
+
+#Bases Temporales
 tick = pygame.USEREVENT
 pygame.time.set_timer(tick, 90)
 tick_2 = pygame.USEREVENT +1
 pygame.time.set_timer(tick_2, 2000)
 tick_3 = pygame.USEREVENT +2
 pygame.time.set_timer(tick_3, 40)
+
+#Creacion de Objetos y Variables
 player_1 = Player(x=0,y=400,speed_walk=4,speed_run=8,gravity=8,jump_power=25,frame_rate_ms=80,move_rate_ms=40,jump_height=150)
 horde = Horde()
-platform = Platform(400, 500)
+lista_plataforma = Plataforms_list()
+lista_plataforma.crear_lista_plataforma(200, 400, 5)
 game_over = False
+debug = True
 
 while True:
     for event in pygame.event.get():
@@ -39,12 +45,11 @@ while True:
     delta_ms = clock.tick(FPS)
     screen.blit(imagen_fondo,imagen_fondo.get_rect())
     
-    horde.draw(screen)
-    
-    platform.draw(screen)
+    horde.draw(screen, debug)
+    lista_plataforma.draw(screen, debug)
     player_1.events(delta_ms,keys)
-    player_1.update(delta_ms)
-    player_1.draw(screen)
+    player_1.update(delta_ms, lista_plataforma.plataforms_list)
+    player_1.draw(screen, debug)
     # enemigos update
     # player dibujarlo
     # dibujar todo el nivel

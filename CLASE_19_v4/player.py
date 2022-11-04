@@ -5,12 +5,12 @@ from auxiliar import Auxiliar
 
 class Player:
     def __init__(self,x,y,speed_walk,speed_run,gravity,jump_power,frame_rate_ms,move_rate_ms,jump_height) -> None:
-        self.walk_r = Auxiliar.getSurfaceFromSpriteSheet(r"C:\Users\vilan\OneDrive\Escritorio\images/caracters/stink/walk.png",15,1)[:12]
-        self.walk_l = Auxiliar.getSurfaceFromSpriteSheet(r"C:\Users\vilan\OneDrive\Escritorio\images/caracters/stink/walk.png",15,1,True)[:12]
-        self.stay_r = Auxiliar.getSurfaceFromSpriteSheet(r"C:\Users\vilan\OneDrive\Escritorio\images/caracters/stink/idle.png",16,1)
-        self.stay_l = Auxiliar.getSurfaceFromSpriteSheet(r"C:\Users\vilan\OneDrive\Escritorio\images/caracters/stink/idle.png",16,1,True)
-        self.jump_r = Auxiliar.getSurfaceFromSpriteSheet(r"C:\Users\vilan\OneDrive\Escritorio\images/caracters/stink/jump.png",33,1,False,2)
-        self.jump_l = Auxiliar.getSurfaceFromSpriteSheet(r"C:\Users\vilan\OneDrive\Escritorio\images/caracters/stink/jump.png",33,1,True,2)
+        self.walk_r = Auxiliar.getSurfaceFromSpriteSheet(r"C:\Users\vilan\Desktop\images/caracters/stink/walk.png",15,1)[:12]
+        self.walk_l = Auxiliar.getSurfaceFromSpriteSheet(r"C:\Users\vilan\Desktop\images/caracters/stink/walk.png",15,1,True)[:12]
+        self.stay_r = Auxiliar.getSurfaceFromSpriteSheet(r"C:\Users\vilan\Desktop\images/caracters/stink/idle.png",16,1)
+        self.stay_l = Auxiliar.getSurfaceFromSpriteSheet(r"C:\Users\vilan\Desktop\images/caracters/stink/idle.png",16,1,True)
+        self.jump_r = Auxiliar.getSurfaceFromSpriteSheet(r"C:\Users\vilan\Desktop\images/caracters/stink/jump.png",33,1,False,2)
+        self.jump_l = Auxiliar.getSurfaceFromSpriteSheet(r"C:\Users\vilan\Desktop\images/caracters/stink/jump.png",33,1,True,2)
         self.frame = 0
         self.lives = 5
         self.score = 0
@@ -34,6 +34,8 @@ class Player:
         self.y_start_jump = 0
         self.jump_height = jump_height
         self.rect_visual = pygame.Rect(self.rect.x, self.rect.y, self.rect.h, self.rect.w)
+        self.rect_feet = pygame.Rect(self.rect.x + self.rect.w / 3, self.rect.y + self.rect.h - 5, self.rect.w / 3, 5)
+        
         
 
     def walk(self,direction):
@@ -85,7 +87,7 @@ class Player:
             self.rect.x += self.move_x
             self.rect.y += self.move_y
 
-            if(self.rect.y < 500):
+            if(self.rect.y < 400):
                 self.rect.y += self.gravity
             elif(self.is_jump): #Â SACAR
                 self.jump(False)
@@ -101,18 +103,26 @@ class Player:
                 self.frame = 0
 
 
+    def is_on_platform(self, lista_bloques):
+        for bloque in lista_bloques:
+            if self.rect_feet.colliderect(bloque.rect_floor):
+                print("plataforma pisada")
 
-    def update(self,delta_ms):
+
+    def update(self,delta_ms, lista_bloques):
         self.do_movement(delta_ms)
         self.do_animation(delta_ms)
         self.rect_visual = pygame.Rect(self.rect.x, self.rect.y, self.rect.w, self.rect.h)
-        
-        
+        self.rect_feet = pygame.Rect(self.rect.x + self.rect.w / 3, self.rect.y + self.rect.h - 5, self.rect.w / 3, 5)
+        self.is_on_platform(lista_bloques)
     
-    def draw(self,screen):
-        pygame.draw.rect(screen, (20, 200, 200), self.rect_visual)
+    def draw(self,screen, debug):
+        if debug:
+            pygame.draw.rect(screen, (20, 200, 200), self.rect)
+            pygame.draw.rect(screen, (40, 30, 50), self.rect_feet)
         self.image = self.animation[self.frame]
         screen.blit(self.image,self.rect)
+        
         
 
     def events(self,delta_ms,keys):
